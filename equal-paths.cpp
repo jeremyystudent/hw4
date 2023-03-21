@@ -31,4 +31,5 @@ std::pair<int,bool> pathCounter(Node * root){
             return std::pair<int,bool>(std::max(left.first,right.first),false);
         }
     }
+    return std::pair<int,bool>(std::max(left.first,right.first),true);
 }
