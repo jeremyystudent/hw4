@@ -18,7 +18,8 @@ bool equalPaths(Node * root)
 }
 
 std::pair<int,bool> pathCounter(Node * root){
-    if(root == nullptr || root->left == nullptr && root->right == nullptr){
+    if(root == nullptr){return std::pair<int,bool>(-1,true);}
+    if(root->left == nullptr && root->right == nullptr){
         return std::pair<int,bool>(0,true);
     }
     std::pair<int,bool> left = pathCounter(root->left);
@@ -26,7 +27,7 @@ std::pair<int,bool> pathCounter(Node * root){
     if(!left.second  || !right.second){
         return std::pair<int,bool>(std::max(left.first,right.first),false);
     }
-    if(left.first != 0 && right.first != 0){
+    if(left.first != -1 && right.first != -1){
         if(left.first != right.first){
             return std::pair<int,bool>(std::max(left.first,right.first),false);
         }
