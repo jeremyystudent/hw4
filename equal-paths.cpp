@@ -22,15 +22,15 @@ std::pair<int,bool> pathCounter(Node * root){
     if(root->left == nullptr && root->right == nullptr){
         return std::pair<int,bool>(0,true);
     }
-    std::pair<int,bool> left = pathCounter(root->left);
-    std::pair<int,bool> right = pathCounter(root->right);
+    std::pair<int,bool> left = pathCounter(root->left);  
+    std::pair<int,bool> right = pathCounter(root->right);    
     if(!left.second  || !right.second){
-        return std::pair<int,bool>(std::max(left.first,right.first),false);
+        return std::pair<int,bool>(std::max(left.first,right.first)+1,false);
     }
     if(left.first != -1 && right.first != -1){
         if(left.first != right.first){
-            return std::pair<int,bool>(std::max(left.first,right.first),false);
+            return std::pair<int,bool>(std::max(left.first,right.first)+1,false);
         }
     }
-    return std::pair<int,bool>(std::max(left.first,right.first),true);
+    return std::pair<int,bool>(std::max(left.first,right.first)+1,true);
 }
