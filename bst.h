@@ -517,7 +517,23 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
             }else{
                 Node<Key, Value> * pred = predecessor(curr);
                 nodeSwap(curr, pred);
-                remove(key);
+                Node<Key, Value> *parent = curr->getParent();
+                if(parent->getLeft() == curr){
+                    if(curr->getLeft() != NULL){
+                        parent->setLeft(curr->getLeft());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setLeft(NULL);
+                    }
+                }else{
+                    if(curr->getLeft() != NULL){
+                        parent->setRight(curr->getRight());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setRight(NULL);
+                    }
+                }
+                delete curr;
             }
         }
         return;
@@ -541,7 +557,23 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
             }else{
                 Node<Key, Value> * pred = predecessor(curr);
                 nodeSwap(curr, pred);
-                remove(key);
+                Node<Key, Value> *parent = curr->getParent();
+                if(parent->getLeft() == curr){
+                    if(curr->getLeft() != NULL){
+                        parent->setLeft(curr->getLeft());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setLeft(NULL);
+                    }
+                }else{
+                    if(curr->getLeft() != NULL){
+                        parent->setRight(curr->getRight());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setRight(NULL);
+                    }
+                }
+                delete curr;
             }
         }
     }else{
@@ -562,7 +594,23 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
             }else{
                 Node<Key, Value> * pred = predecessor(curr);
                 nodeSwap(curr, pred);
-                remove(key);
+                Node<Key, Value> *parent = curr->getParent();
+                if(parent->getLeft() == curr){
+                    if(curr->getLeft() != NULL){
+                        parent->setLeft(curr->getLeft());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setLeft(NULL);
+                    }
+                }else{
+                    if(curr->getLeft() != NULL){
+                        parent->setRight(curr->getRight());
+                        curr->getLeft()->setParent(parent);
+                    }else{
+                        parent->setRight(NULL);
+                    }
+                }
+                delete curr;
             }
         }
     }
