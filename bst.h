@@ -642,12 +642,12 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 template<typename Key, typename Value>
 bool BinarySearchTree<Key, Value>::isBalanced(Node<Key,Value> *start) const
 {
-	if(abs(getHeight(root_->getLeft()) - getHeight(root_->getRight())) > 1){return false;}
-	if(root_->getLeft() != nullptr){
-		if(!isBalanced(root_->getLeft())){return false;}
+	if(abs(getHeight(start->getLeft()) - getHeight(start->getRight())) > 1){return false;}
+	if(start->getLeft() != nullptr){
+		if(!isBalanced(start->getLeft())){return false;}
 	}
-	if(root_->getRight() != nullptr){
-		if(!isBalanced(root_->getRight())){return false;}
+	if(start->getRight() != nullptr){
+		if(!isBalanced(start->getRight())){return false;}
 	}
 	return true;
 }
