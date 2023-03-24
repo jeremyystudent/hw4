@@ -26,6 +26,11 @@ int main(int argc, char *argv[])
     cout << "Erasing b" << endl;
     bt.remove('b');
 
+    cout << "Binary Search Tree contents:" << endl;
+    for(BinarySearchTree<char,int>::iterator it = bt.begin(); it != bt.end(); ++it) {
+        cout << it->first << " " << it->second << endl;
+    }
+
     // AVL Tree Tests
     AVLTree<char,int> at;
     at.insert(std::make_pair('a',1));

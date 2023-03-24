@@ -307,8 +307,8 @@ bool
 BinarySearchTree<Key, Value>::iterator::operator==(
     const BinarySearchTree<Key, Value>::iterator& rhs) const
 {
-    if(rhs.current_ != NULL){return current_->getItem() == rhs.current_->getItem();}
-    return false;
+    if(rhs.current_ == NULL){return current_ == NULL;}
+    return current_->getItem() == rhs.current_->getItem();
 }
 
 /**
@@ -320,8 +320,8 @@ bool
 BinarySearchTree<Key, Value>::iterator::operator!=(
     const BinarySearchTree<Key, Value>::iterator& rhs) const
 {
-    if(rhs.current_ != NULL){return current_->getItem() != rhs.current_->getItem();}
-    return false;
+    if(rhs.current_ == NULL){return current_ != NULL;}
+    return current_->getItem() != rhs.current_->getItem();
 }
 
 
@@ -337,11 +337,20 @@ BinarySearchTree<Key, Value>::iterator::operator++()
         while(current_->getLeft() != NULL){
             current_ = current_->getLeft();
         }
+        return *this;
     }
     Node<Key,Value> * parent = current_->getParent();
+    if(parent == NULL){
+        current_ = NULL;
+        return *this;
+    }
     while(current_ != parent->getLeft()){
         current_ = parent;
         parent = parent->getParent();
+        if(parent == NULL){
+            current_ = NULL;
+            return *this;
+        }
     }
     current_ = parent;
     return *this;
@@ -461,7 +470,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
     }
     Node<Key, Value> *curr = root_;
     while(curr->getValue() != keyValuePair.first){
-        if(curr->getValue() > keyValuePair.first){
+        if(curr->getValue() < keyValuePair.first){
             if(curr->getRight() == NULL){
                 curr->setRight(new Node<Key, Value>(keyValuePair.first, keyValuePair.second, curr));
                 return;
