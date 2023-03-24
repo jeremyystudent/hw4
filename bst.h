@@ -654,8 +654,8 @@ bool BinarySearchTree<Key, Value>::isBalanced(Node<Key,Value> *start) const
 template<typename Key, typename Value>
 int BinarySearchTree<Key, Value>::getHeight(Node<Key,Value> *root) const{
 	if(root == nullptr){return 0;}
-	int left = getHeight(root->left);
-	int right = getHeight(root->right);
+	int left = getHeight(root->getLeft());
+	int right = getHeight(root->getRight());
 	return std::max(left, right) + 1;
 }
 
