@@ -567,7 +567,7 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
                     }
                 }else{
                     if(curr->getLeft() != NULL){
-                        parent->setRight(curr->getRight());
+                        parent->setRight(curr->getLeft());
                         curr->getLeft()->setParent(parent);
                     }else{
                         parent->setRight(NULL);
@@ -604,7 +604,7 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
                     }
                 }else{
                     if(curr->getLeft() != NULL){
-                        parent->setRight(curr->getRight());
+                        parent->setRight(curr->getLeft());
                         curr->getLeft()->setParent(parent);
                     }else{
                         parent->setRight(NULL);
