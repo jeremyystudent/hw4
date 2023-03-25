@@ -223,7 +223,7 @@ void AVLTree<Key, Value>::leftRotate(Node<Key,Value> *root){
     root->setRight(rightLeft);
     rightLeft->setParent(root);
     if(parent == NULL){
-        root_ = right;
+        BinarySearchTree<Key,Value>::root_ = right;
         right->setParent(NULL);
     }else{
         if(root == parent->getLeft()){
@@ -245,7 +245,7 @@ void AVLTree<Key, Value>::rightRotate(Node<Key,Value> *root){
     root->setLeft(leftRight);
     leftRight->setParent(root);
     if(parent == NULL){
-        root_ = left;
+        BinarySearchTree<Key,Value>::root_ = left;
         left->setParent(NULL);
     }else{
         if(root == parent->getLeft()){
