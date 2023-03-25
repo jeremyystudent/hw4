@@ -142,7 +142,7 @@ protected:
     int getHeight(Node<Key,Value> *root) const;
     void leftRotate(Node<Key,Value> *root);
     void rightRotate(Node<Key,Value> *root);
-    void fixRotation(Node<Key,Value> *curr);
+    void fixRotation(Node<Key,Value> *grandchild, Node<Key,Value> *child, Node<Key,Value> *curr);
 
 };
 
@@ -155,7 +155,15 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
 {
     BinarySearchTree<Key,Value>::insert(new_item);
     if(!BinarySearchTree<Key,Value>::isBalanced()){
-        fixRotation(BinarySearchTree<Key,Value>::internalFind(new_item.first));
+        Node<Key,Value> * grandchild = BinarySearchTree<Key,Value>::internalFind(new_item.first);
+        Node<Key,Value> * child = grandchild->getParent();
+        Node<Key,Value> * curr = child->getParent();
+        while(isBalanced(curr)){
+            grandchild = child;
+            child = curr;
+            curr = curr->getParent();
+        }
+        fixRotation(grandchild, child, curr);
     }
 }
 
@@ -166,26 +174,31 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
 template<class Key, class Value>
 void AVLTree<Key, Value>:: remove(const Key& key)
 {
-
     Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key);
     if(start == NULL){return;}
     start = start->getParent();
     BinarySearchTree<Key,Value>::remove(key);
     if(!BinarySearchTree<Key,Value>::isBalanced()){
-        if(start != NULL){fixRotation(start);}
+        Node<Key,Value> * curr = start;
+        Node<Key,Value> * grandchild;
+        Node<Key,Value> * child;
+        while(isBalanced(curr)){curr = curr->getParent();}
+        if(getHeight(curr->getLeft()) > getHeight(curr->getRight())){
+            child = curr->getLeft();
+        }else{
+            child = curr->getRight();
+        }
+        if(getHeight(child->getLeft()) > getHeight(child->getRight())){
+            grandchild = child->getLeft();
+        }else{
+            grandchild = child->getRight();
+        }
+        fixRotation(grandchild,child,curr);
     }
 }
 
 template<class Key, class Value>
-void AVLTree<Key, Value>::fixRotation(Node<Key,Value> *start){
-    Node<Key,Value> * grandchild = start;
-    Node<Key,Value> * child = grandchild->getParent();
-    Node<Key,Value> * curr = child->getParent();
-    while(isBalanced(curr)){
-        grandchild = child;
-        child = curr;
-        curr = curr->getParent();
-    }
+void AVLTree<Key, Value>::fixRotation(Node<Key,Value> *grandchild, Node<Key,Value> *child, Node<Key,Value> *curr){
     if(child == curr->getLeft()){
         if(grandchild = child->getRight()){
             leftRotate(child);
