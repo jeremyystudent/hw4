@@ -166,7 +166,10 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
 template<class Key, class Value>
 void AVLTree<Key, Value>:: remove(const Key& key)
 {
-    Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key)->getParent();
+
+    Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key);
+    if(start == NULL){return;}
+    start = start->getParent();
     BinarySearchTree<Key,Value>::remove(key);
     if(!BinarySearchTree<Key,Value>::isBalanced()){
         if(start != NULL){fixRotation(start);}
