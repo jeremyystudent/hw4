@@ -219,19 +219,21 @@ template<typename Key, typename Value>
 void AVLTree<Key, Value>::leftRotate(Node<Key,Value> *root){
     Node<Key, Value> * parent = root->getParent();
     Node<Key, Value> * right = root->getRight();
-    if(parent != NULL){
+    Node<Key, Value> * rightLeft = right->getLeft();
+    root->setRight(rightLeft);
+    rightLeft->setParent(root);
+    if(parent == NULL){
+        root_ = right;
+        right->setParent(NULL);
+    }else{
         if(root == parent->getLeft()){
             parent->setLeft(right);
         }else{
             parent->setRight(right);
         }
-    }else{
-        root_ = right;
+        right->setParent(parent);
     }
-    right->setParent(parent);
-    if(right->getLeft() != NULL){right->getLeft()->setParent(root);}
-    right->setLeft(root);    
-    root->setRight(right->getLeft());
+    right->setRight(root);
     root->setParent(right);
 }
 
@@ -239,19 +241,21 @@ template<typename Key, typename Value>
 void AVLTree<Key, Value>::rightRotate(Node<Key,Value> *root){
     Node<Key, Value> * parent = root->getParent();
     Node<Key, Value> * left = root->getLeft();
-    if(parent != NULL){
+    Node<Key, Value> * leftRight = left->getRight();
+    root->setLeft(leftRight);
+    leftRight->setParent(root);
+    if(parent == NULL){
+        root_ = left;
+        left->setParent(NULL);
+    }else{
         if(root == parent->getLeft()){
             parent->setLeft(left);
         }else{
             parent->setRight(left);
         }
-    }else{
-        root_ = left;
+        left->setParent(parent);
     }
-    left->setParent(parent);
-    if(left->getRight()!=NULL){left->getRight()->setParent(root);}
-    left->setRight(root);
-    root->setLeft(left->getRight());
+    left->setLeft(root);
     root->setParent(left);
 }
 
