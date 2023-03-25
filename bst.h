@@ -640,6 +640,7 @@ void BinarySearchTree<Key, Value>::clear()
     while(root_ != NULL){
         remove(root_->getKey());
     }
+    root_ = NULL;
 }
 
 
