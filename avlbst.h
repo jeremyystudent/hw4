@@ -181,13 +181,13 @@ void AVLTree<Key, Value>::fixRotation(Node<Key,Value> *start){
         child = curr;
         curr = curr->getParent();
     }
-    if(child = curr->getLeft()){
+    if(child == curr->getLeft()){
         if(grandchild = child->getRight()){
             leftRotate(child);
         }
         rightRotate(curr);
     }else{
-        if(grandchild = child->getLeft()){
+        if(grandchild == child->getLeft()){
             rightRotate(child);
         }
         leftRotate(curr);
