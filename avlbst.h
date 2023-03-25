@@ -168,7 +168,10 @@ void AVLTree<Key, Value>:: remove(const Key& key)
 {
     Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key)->getParent();
     BinarySearchTree<Key,Value>::remove(key);
-    if(!BinarySearchTree<Key,Value>::isBalanced()){fixRotation(start);}
+    if(!BinarySearchTree<Key,Value>::isBalanced()){
+        if(start == NULL){fixRotation(BinarySearchTree<Key,Value>::root_);}
+        else{fixRotation(start);}
+    }
 }
 
 template<class Key, class Value>
