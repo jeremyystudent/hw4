@@ -225,13 +225,11 @@ void AVLTree<Key, Value>::leftRotate(Node<Key,Value> *root){
         }else{
             parent->setRight(right);
         }
-        right->setParent(parent);
-    }else{
-        right->setParent(NULL);
     }
+    right->setParent(parent);
+    right->setLeft(root);    
+    if(right->getLeft() != NULL){right->getLeft()->setParent(root);}
     root->setRight(right->getLeft());
-    right->getLeft()->setParent(root);
-    right->setLeft(root);
     root->setParent(right);
 }
 
@@ -245,13 +243,11 @@ void AVLTree<Key, Value>::rightRotate(Node<Key,Value> *root){
         }else{
             parent->setRight(left);
         }
-        left->setParent(parent);
-    }else{
-        left->setParent(NULL);
     }
-    root->setLeft(left->getRight());
-    left->getRight()->setParent(root);
+    left->setParent(parent);
     left->setRight(root);
+    if(left->getRight()!=NULL){left->getRight()->setParent(root);}
+    root->setLeft(left->getRight());
     root->setParent(left);
 }
 
