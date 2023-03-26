@@ -178,23 +178,24 @@ void AVLTree<Key, Value>:: remove(const Key& key)
     if(start == NULL){return;}
     start = start->getParent();
     BinarySearchTree<Key,Value>::remove(key);
-    if(!BinarySearchTree<Key,Value>::isBalanced()){
-        Node<Key,Value> * curr = start;
-        Node<Key,Value> * grandchild;
-        Node<Key,Value> * child;
-        while(isBalanced(curr)){curr = curr->getParent();}
-        if(getHeight(curr->getLeft()) > getHeight(curr->getRight())){
-            child = curr->getLeft();
-        }else{
-            child = curr->getRight();
-        }
-        if(getHeight(child->getLeft()) > getHeight(child->getRight())){
-            grandchild = child->getLeft();
-        }else{
-            grandchild = child->getRight();
-        }
-        fixRotation(grandchild,child,curr);
+    Node<Key,Value> * curr = start;
+    Node<Key,Value> * grandchild;
+    Node<Key,Value> * child;
+    while(isBalanced(curr)){
+        curr = curr->getParent();
+        if(curr == NULL){return;}
     }
+    if(getHeight(curr->getLeft()) > getHeight(curr->getRight())){
+        child = curr->getLeft();
+    }else{
+        child = curr->getRight();
+    }
+    if(getHeight(child->getLeft()) > getHeight(child->getRight())){
+        grandchild = child->getLeft();
+    }else{
+        grandchild = child->getRight();
+    }
+    fixRotation(grandchild,child,curr);
 }
 
 template<class Key, class Value>
