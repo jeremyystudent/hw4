@@ -181,6 +181,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
     Node<Key,Value> * curr = start;
     Node<Key,Value> * grandchild;
     Node<Key,Value> * child;
+    if(curr == NULL){return;}
     while(isBalanced(curr)){
         curr = curr->getParent();
         if(curr == NULL){return;}
