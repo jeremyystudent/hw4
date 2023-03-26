@@ -176,7 +176,11 @@ void AVLTree<Key, Value>:: remove(const Key& key)
 {
     Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key);
     if(start == NULL){return;}
-    start = start->getParent();
+    if(start->getLeft()  != NULL && start->getRight() != NULL){
+        start = BinarySearchTree<Key,Value>::predecessor(start);
+    }else{
+        start = start->getParent();
+    }
     BinarySearchTree<Key,Value>::remove(key);
     Node<Key,Value> * curr = start;
     Node<Key,Value> * grandchild;
