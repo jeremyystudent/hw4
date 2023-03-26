@@ -154,17 +154,18 @@ template<class Key, class Value>
 void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
 {
     BinarySearchTree<Key,Value>::insert(new_item);
-    if(!BinarySearchTree<Key,Value>::isBalanced()){
-        Node<Key,Value> * grandchild = BinarySearchTree<Key,Value>::internalFind(new_item.first);
-        Node<Key,Value> * child = grandchild->getParent();
-        Node<Key,Value> * curr = child->getParent();
-        while(isBalanced(curr)){
-            grandchild = child;
-            child = curr;
-            curr = curr->getParent();
-        }
-        fixRotation(grandchild, child, curr);
+    Node<Key,Value> * grandchild = BinarySearchTree<Key,Value>::internalFind(new_item.first);
+    Node<Key,Value> * child;
+    Node<Key,Value> * curr;
+    if(grandchild->getParent() != NULL){child = grandchild->getParent();}else{return;}
+    if(child->getParent() != NULL){curr = child->getParent();}else{return;}
+    while(isBalanced(curr)){
+        grandchild = child;
+        child = curr;
+        curr = curr->getParent();
+        if(curr == NULL){return;}
     }
+    fixRotation(grandchild, child, curr);
 }
 
 /*
