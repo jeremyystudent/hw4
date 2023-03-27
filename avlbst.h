@@ -178,7 +178,7 @@ void AVLTree<Key, Value>:: remove(const Key& key)
     Node<Key,Value> *start = BinarySearchTree<Key,Value>::internalFind(key);
     if(start == NULL){return;}
     if(start->getLeft()  != NULL && start->getRight() != NULL){
-        start = BinarySearchTree<Key,Value>::predecessor(start);
+        start = BinarySearchTree<Key,Value>::predecessor(start)->getParent();
     }else{
         start = start->getParent();
     }
